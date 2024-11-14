@@ -63,12 +63,3 @@ jobs:
         env:
           RELEASE: ${{ toJSON(steps.release.outputs) }}
         run: echo "$RELEASE"
-
-  deploy-staging: # test with staging
-    name: Staging
-    needs: [release-please]
-    if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
-    with:
-      stage: staging
